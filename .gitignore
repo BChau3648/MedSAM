@@ -2,8 +2,8 @@
 # Project specific
 *.DS_Store
 *.pth
-*.nii.gz
-*.nii
+# *.nii.gz
+# *.nii
 *.npy
 *.npz
 *.csv
