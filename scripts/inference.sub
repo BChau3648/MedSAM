@@ -1,0 +1,24 @@
+universe=docker
+
+docker_image = registry.cvib.ucla.edu/blchau:medsam
+docker_pull_policy = always
+
+executable = /radraid/blchau/MedSAM/scripts/inference.sh
+arguments = /radraid/blchau/Brian_nnUNet/data/nnUNet_raw/Dataset248_UCLA/imagesTs /radraid/blchau/Brian_nnUNet/data/nnUNet_raw/Dataset248_UCLA/labelsTs /radraid/blchau/MedSAM/scripts/Dataset248_UCLA_Test_Set_pred
+transfer_input_files = /radraid/blchau/MedSAM/scripts/inference.py
+
+should_transfer_files = YES
+
+when_to_transfer_output = ON_EXIT
+
+output = /radraid/blchau/MedSAM/scripts/logs/$(cluster).$(process).out
+error = /radraid/blchau/MedSAM/scripts/logs/$(cluster).$(process).err
+log = /radraid/blchau/MedSAM/scripts/logs/$(cluster).$(process).log
+
+request_cpus = 1
+request_gpus = 1
+request_memory = 16GB
+request_disk = 100MB
+requirements = (OpSys == "LINUX" && Arch == "X86_64")
+
+queue
