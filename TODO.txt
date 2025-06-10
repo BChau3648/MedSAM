@@ -1,3 +1,0 @@
-- convert segmentations to bounding boxes
-- run model on these bounding boxes
-- evaluate using dice score and hausdorff distance

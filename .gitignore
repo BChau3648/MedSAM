@@ -12,6 +12,10 @@
 data/
 work_dir/
 
+# Path to data
+scripts/Dataset220_KiTS2023_Test_Set_pred
+scripts/Dataset248_UCLA_Test_Set_pred
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

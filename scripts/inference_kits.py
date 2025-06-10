@@ -89,6 +89,14 @@ for i in tqdm(range(len(images))):
     kid_label_nib = nib.load(os.path.join(args.labels_path, labels[i]))
     kid_label = kid_label_nib.get_fdata()
 
+    # Mask label to only 0=background and 1=lesion
+    kid_label[kid_label != 2] = 0
+    kid_label[kid_label == 2] = 1
+
+    # Rearrange img and label into H, W, C
+    kid_img = kid_img.transpose((1, 2, 0))
+    kid_label = kid_label.transpose((1, 2, 0))
+
     # Iterate through each slice of the label and find the bounding box
     bounding_boxes = []
     for j in range(kid_label.shape[2]):
@@ -135,6 +143,8 @@ for i in tqdm(range(len(images))):
     # Calculating spacing of resampled scan
     og_shape = kid_label.shape
     og_spacing = kid_label_nib.header.get_zooms()
+    # Changing og_spacing because rearranged axes earlier
+    og_spacing = og_spacing[1:] + (og_spacing[0],)
     new_shape = (1024, 1024, og_shape[2])
     new_spacing = tuple(np.array(og_spacing) * np.array(og_shape) / np.array(new_shape))
     # one hot encode 3D tensor

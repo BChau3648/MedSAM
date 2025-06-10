@@ -1,0 +1,25 @@
+universe=docker
+
+docker_image = registry.cvib.ucla.edu/blchau:medsam1
+docker_pull_policy = always
+
+executable = /radraid/blchau/MedSAM/scripts/inference_kits.sh
+arguments = /radraid/blchau/Brian_nnUNet/data/nnUNet_raw/Dataset220_KiTS2023/imagesTs /radraid/blchau/Brian_nnUNet/data/nnUNet_raw/Dataset220_KiTS2023/labelsTs /radraid/blchau/MedSAM/scripts/Dataset220_KiTS2023_Test_Set_pred
+transfer_input_files = /radraid/blchau/MedSAM/scripts/inference_kits.py
+
+should_transfer_files = YES
+
+when_to_transfer_output = ON_EXIT
+
+output = /radraid/blchau/MedSAM/scripts/Dataset220_KiTS2023_Test_Set_pred/logs/$(cluster).$(process).out
+error = /radraid/blchau/MedSAM/scripts/Dataset220_KiTS2023_Test_Set_pred/logs/$(cluster).$(process).err
+log = /radraid/blchau/MedSAM/scripts/Dataset220_KiTS2023_Test_Set_pred/logs/$(cluster).$(process).log
+
+request_cpus = 1
+request_gpus = 1
+request_memory = 24GB
+request_disk = 100MB
+gpus_minimum_memory = 16GB
+requirements = (OpSys == "LINUX" && Arch == "X86_64")
+
+queue
